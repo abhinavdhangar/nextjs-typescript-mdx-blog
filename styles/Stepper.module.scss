@@ -1,0 +1,56 @@
+._boStep {
+  // the text
+  @apply relative ml-8 pb-8 pt-0.5 max-w-[669px] pl-2 text-sm font-bold ;
+  > div:first-child {
+    @apply font-normal  text-base sm:text-lg;
+  }
+
+  // the vertical line
+  &:before {
+    content: "";
+    @apply absolute top-0 -left-4 block h-full w-0.5 border border-blue-300;
+  }
+
+  // the icon
+  &:after {
+    content: "";
+    @apply absolute top-0 flex h-6 w-6 items-center justify-center border-red-500 rounded-full border-2  ;
+    left: -1.7rem;
+  }
+}
+
+.boStepDone {
+  @extend ._boStep;
+
+  &:before {
+    @apply  border-b-orange-50;
+  }
+
+  &:after {
+    content: "✓";
+    @apply text-sm font-black text-white;
+  }
+}
+
+.boStepActive {
+  @extend ._boStep;
+ 
+  &:after {
+    content: "•";
+    @apply bg-white dark:bg-black dark:text-blue-700 text-lg font-black ;
+  }
+}
+
+.boStepTodo {
+  @extend ._boStep;
+
+  &:after {
+    @apply rounded-full border-red-300 bg-white;
+  }
+
+  &:last-child {
+    &:before {
+      @apply border-transparent;
+    }
+  }
+}

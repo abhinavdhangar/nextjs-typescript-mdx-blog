@@ -15,6 +15,10 @@ image: '/images/bridge.jpg'
 
 ## Heading H2
 
+// Custom components/renderers to pass to MDX.
+// Since the MDX files aren't loaded by webpack, they have no knowledge of how
+// to handle import statements. Instead, you must include components in scope
+// here.
 This is an example blog post with React components. This page is using the `Image` component from Next.js.
 
 ```jsx:example-post.mdx
@@ -31,22 +35,31 @@ This is an example blog post with React components. This page is using the `Imag
 
 This starter also comes with fancy code blocks with code titles.
 
+This is a Next.js, Tailwind CSS blogging starter template. Probably the most feature-rich Next.js markdown blogging template out there. Comes out of the box configured with the latest technologies to make technical writing a breeze. Easily configurable and customizable. Perfect as a replacement to existing Jekyll and Hugo individual blogs.
+
+<CopyButton style={{ marginBottom: '15px' }} />
+
+<Image
+  alt={`Bridge`}
+  src={`/images/bridge.jpg`}
+  width={1440}
+  height={960}
+  priority
+/>
+
+<CopyButton style={{ marginBottom: '20px' }} />
+
+This is a Next.js, Tailwind CSS blogging starter template. Probably the most feature-rich Next.js mark
+
 ```jsx:example.jsx
-import React, { useState } from 'react';
 
-function Example() {
-  // Declare a new state variable, which we'll call "count"
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  );
-}
+<Image
+  alt={`Bridge`}
+  src={`/images/bridge.jpg`}
+  width={1440}
+  height={960}
+  priority
+/>
 ```
 
 Go back [Home](/).

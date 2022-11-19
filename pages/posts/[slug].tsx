@@ -13,11 +13,13 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+import CopyButton from '../../components/CopyButton';
 import Layout, { WEBSITE_HOST_URL } from '../../components/Layout';
+import Pre from '../../components/Pre';
+import Stepper from '../../components/Stepper'
 import { MetaProps } from '../../types/layout';
 import { PostType } from '../../types/post';
 import { postFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
-
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
 // to handle import statements. Instead, you must include components in scope
@@ -25,7 +27,10 @@ import { postFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
 const components = {
   Head,
   Image,
+  CopyButton,
   Link,
+  pre:Pre,
+  Stepper
 };
 
 type PostPageProps = {

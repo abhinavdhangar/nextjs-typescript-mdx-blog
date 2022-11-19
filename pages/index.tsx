@@ -1,5 +1,6 @@
 import { format, parseISO } from 'date-fns';
 import { GetStaticProps } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Layout from '../components/Layout';
@@ -41,7 +42,14 @@ export const Index = ({ posts }: IndexProps): JSX.Element => {
               </a>
             </Link>
           </h1>
-          <p className="mb-3">{post.description}</p>
+      {post.image &&    <Image
+            alt={post.description}
+            src={post.image}
+            width={660}
+            height={380}
+            priority
+          />}
+          <div className="mb-3 max-w-[669px]" dangerouslySetInnerHTML={{__html:`${post.description}`}}/>
           <p>
             <Link as={`/posts/${post.slug}`} href={`/posts/[slug]`}>
               <a>Read More</a>
@@ -54,7 +62,7 @@ export const Index = ({ posts }: IndexProps): JSX.Element => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts(['date', 'description', 'slug', 'title']);
+  const posts = getAllPosts(['date', 'description', 'slug', 'image', 'title']);
 
   return {
     props: { posts },
