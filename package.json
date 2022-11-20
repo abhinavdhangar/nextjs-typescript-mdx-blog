@@ -26,8 +26,15 @@
     ]
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.14",
+    "@mui/material": "^5.10.14",
     "@tailwindcss/typography": "^0.5.7",
     "date-fns": "^2.29.2",
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.0.0",
     "gray-matter": "^4.0.3",
     "mdx-prism": "^0.3.4",
     "next": "^12.3.0",

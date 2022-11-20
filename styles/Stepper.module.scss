@@ -28,7 +28,7 @@
 
   &:after {
     content: "✓";
-    @apply text-sm font-black text-white;
+    @apply text-sm font-black dark:bg-black bg-white;
   }
 }
 

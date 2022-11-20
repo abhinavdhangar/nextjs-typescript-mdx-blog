@@ -1,21 +1,19 @@
-import styles from "../styles/Stepper.module.scss"
+import styles from '../styles/Stepper.module.scss';
 
-export default function Index(){
+export default function Index(props) {
+  let {content,isLink} = props
+
+
     return (
-       
-    <div className='my-4'>
-    <div className={styles.boStepActive}>
-      
-  <div> sdfker dserr jkeri  kereroer oero osudui oirieri dfidker dkseklio i iofdjfker iodfoidsf  description of the step above lorem ipsum description of the  above </div> 
+    <div className="my-4">
+      {content.map(single=>(
+        <div className={styles.boStepActive}>
+          <div>
+            { single.url ?(<a href={single.url}>{single.title}</a>):(single.title)}
+          </div>
+          </div>
+      ))}
+    
     </div>
-    <div className={styles.boStepActive}>
-   
-    description of the step above
-    </div>
-    <div className={styles.boStepActive}>
-
-      <div> sdfker dserr jkeri  kereroer oero osudui oirieri dfidker dkseklio i iofdjfker iodfoidsf  description of the step above lorem ipsum dslfd</div>
-    </div>
-</div>
-    )
+  );
 }
