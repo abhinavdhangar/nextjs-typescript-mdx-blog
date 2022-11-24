@@ -4,6 +4,7 @@ import Head from './Head';
 import Navigation from './Navigation';
 import ThemeSwitch from './ThemeSwitch';
 import {isMobile} from 'react-device-detect';
+import { motion } from 'framer-motion';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -18,10 +19,18 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <Head customMeta={customMeta} />
       <header>
         <div className={`max-w-5xl ${isMobile?"px-4":"px-8"} mx-auto`}>
+        
+        <motion.div
+          animate={{ opacity:1 , x:0 }}
+            initial={{ opacity:0 , x:-100 }}
+        >
           <div className="flex items-center justify-between py-6">
             <Navigation />
             <ThemeSwitch />
           </div>
+        </motion.div>
+        
+
         </div>
       </header>
       <main>

@@ -1,6 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { motion } from 'framer-motion';
-import fs from 'fs';
+
 import matter from 'gray-matter';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -14,16 +13,16 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import Banner from '../../components/Banner';
 import CopyButton from '../../components/CopyButton';
 import Layout, { WEBSITE_HOST_URL } from '../../components/Layout';
 import Pre from '../../components/Pre';
 import Stepper from '../../components/Stepper'
 import { MetaProps } from '../../types/layout';
+import {getPostDetails} from '../../services'
 import { PostType } from '../../types/post';
-import { postFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
-
-//Custom components/renderers to pass to MDX.
+import BreadCrumb from '../../components/BreadCrumb'
+// import { postFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
+// Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
 // to handle import statements. Instead, you must include components in scope
 // here.
@@ -36,55 +35,45 @@ const components = {
   Stepper
 };
 
-type PostPageProps = {
-  source: MDXRemoteSerializeResult;
-  frontMatter: PostType;
-};
+// type PostPageProps = {
+//   source: MDXRemoteSerializeResult;
+//   frontMatter: PostType;
+// };
 
-const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
-  const customMeta: MetaProps = {
-    title: `${frontMatter.title} - Hunter Chang`,
-    description: frontMatter.description,
-    image: `${WEBSITE_HOST_URL}${frontMatter.image}`,
-    date: frontMatter.date,
+const PostPage = ({ source ,content})=> {
+  const customMeta = {
+    title: `${source.title} - Hunter Chang`,
+    description: source.description,
+    image:typeof source.image.url == "string" ? source.image.url:source.image.url.url,
+    // image: `${WEBSITE_HOST_URL}${source.image.}`,
+    date: source.createdAt,
     type: 'article',
   };
   return (
-    <motion.div
-    animate={{opacity:[1,0.6,0,1]}}
-    transition={{ delay: 2 }}
-    >
 
     <Layout customMeta={customMeta}>
+      <BreadCrumb present={source.title}/>
       <article>
-        <motion.div
-        animate={{ opacity:1 , y:0 }}
-        initial={{ opacity:0 , y:-300 }}
-        >
-          <Banner/>
         <h1 className="mb-3 text-gray-900 dark:text-white">
-          {frontMatter.title}
+          {source.title}
         </h1>
         <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
-          {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')}
+          {format(parseISO(source.createdAt), 'MMMM dd, yyyy')}
         </p>
-
         <div className="prose dark:prose-dark">
-          <MDXRemote {...source} components={components} />
+          <MDXRemote {...content} components={components} />
         </div>
-        </motion.div>
       </article>
     </Layout>
-        </motion.div>
-  
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`);
-  const source = fs.readFileSync(postFilePath);
-
-  const { content, data } = matter(source);
+export const getServerSideProps= async ({ params }) => {
+const {slug} = params
+const result = await getPostDetails(slug)
+let rawData = result.markdownContent
+console.log(rawData)
+const {content,data} = matter(rawData)
 
   const mdxSource = await serialize(content, {
     // Optionally pass remark/rehype plugins
@@ -107,26 +96,26 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
     scope: data,
   });
-// console.log(mdxSource)
+
   return {
     props: {
-      source: mdxSource,
-      frontMatter: data,
+      source: result,
+      content:mdxSource
     },
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = postFilePaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
+// export const getStaticPaths= async () => {
+//   const paths = postFilePaths
+//     // Remove file extensions for page paths
+//     .map((path) => path.replace(/\.mdx?$/, ''))
+//     // Map the path into the static paths object required by Next.js
+//     .map((slug) => ({ params: { slug } }));
 
-  return {
-    paths,
-    fallback: false,
-  };
-};
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
 
 export default PostPage;
