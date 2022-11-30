@@ -5,7 +5,11 @@ const graphQLClient = new GraphQLClient(
   graphQLAPI // here add your endpoint
 );
 export const getPosts = async ()=>{
-
+const graphQLClient = new GraphQLClient(
+  graphQLAPI, {
+    headers: () => ({"gcms-locales":"en"}),
+}
+);
     const query = gql`
     query Posts {
       postsConnection {

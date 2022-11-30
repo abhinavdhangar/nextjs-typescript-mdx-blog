@@ -2,6 +2,7 @@ $layout-breakpoint-large: 1920px;
 $layout-breakpoint-medium: 1440px;
 $layout-breakpoint-small: 960px;
 $layout-breakpoint-xsmall: 480px;
+@import url('https://fonts.googleapis.com/css2?family=Fresca&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Griffy&display=swap');// Colors
 $background: #f0eff1;
 $white: #fff;
@@ -32,13 +33,15 @@ $black: #24242a;
     }
     .rowTitle,
     .rowLetter {
-    //   font-size: 3rem;
-font-family: 'Griffy', cursive;
+
+// font-family: 'Griffy', cursive;
+font-family: 'Fresca', sans-serif;
+
       font-weight: 540;
       position: relative;
-    //   letter-spacing: 0.8rem;
+   
       display: inline-block;
-    //   white-space: nowrap;
+
       @media (max-width: $layout-breakpoint-xsmall) {
         // font-size: 13rem;
       }

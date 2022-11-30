@@ -4,7 +4,7 @@ import styles from '../styles/Heading.module.scss';
 const banner = {
   animate: {
     transition: {
-      delayChildren: 0.4,
+      delayChildren: 0.3,
       staggerChildren: 0.1,
     },
   },
@@ -14,7 +14,10 @@ const letterAni = {
   initial: { y: 550 },
   animate: {
     y: 0,
+    
     transition: {
+      type:"spring",
+      // stiffness:10,
       ease: [0.6, 0.01, -0.05, 0.95],
       duration: 1,
     },
@@ -34,8 +37,9 @@ const AnimatedLetters = ({ title, disabled }) => {
       {title.map((letter, index) => (
         <motion.span
           key={index}
-          className={`${styles.rowLetter} text-3xl md:text-4xl`}
+          className={`${styles.rowLetter} text-3xl md:text-5xl`}
           variants={disabled ? null : letterAni}
+          
         >
           {letter} <span className="md:mr-[12px] mr-[9px]"></span>
         </motion.span>
@@ -50,7 +54,12 @@ const BannerRowCenter = ({ title, playMarquee }) => {
       <motion.div
         initial={{ y: 310 }}
         animate={{ y: 0 }}
-        transition={{ ease: [0.6, 0.01, -0.05, 0.9], duration: 1 }}
+        transition={{
+          duration: 0.4,
+          ease: [0.6, 0.01, -0.05, 0.9],
+          type: 'spring',
+          stiffness: 100,
+        }}
       >
         {/* <AnimatedLetters title={title} disabled />
         <AnimatedLetters title={title} />

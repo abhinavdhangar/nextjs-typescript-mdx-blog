@@ -34,9 +34,9 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         </div>
       </header>
       <main>
-        <div className={`max-w-5xl ${isMobile?"px-4":"px-8"}  py-4 mx-auto`}>{children}</div>
+        <div className={`max-w-6xl ${isMobile?"px-4":"px-8"}  py-4 mx-auto`}>{children}</div>
       </main>
-      <footer className="py-8">
+      {/* <footer className="py-8">
         <div className="max-w-5xl px-8 mx-auto">
           Built by{' '}
           <a
@@ -46,7 +46,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             Hunter Chang
           </a>
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 };
