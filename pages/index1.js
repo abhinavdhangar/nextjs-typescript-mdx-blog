@@ -9,6 +9,7 @@ import { getPosts, getRecentPosts } from '../services';
 
 
 export const Index = (props) => {
+    console.log(props)
     let posts = props.data.postsConnection.edges
     console.log(props.recent)
     return (
@@ -43,14 +44,14 @@ export const Index = (props) => {
                             </a>
                         </Link>
                     </h1>
-                    {typeof post.node.image.url == "string" && <Image
+                    {post.node.image && typeof post.node.image.url == "string" && <Image
                         alt={post.node.title}
                         src={post.node.image.url}
                         width={660}
                         height={380}
                         priority
                     />}
-                    {post.node.image.url.url && <Image
+                  {post.node.image && post.node.image.url.url && <Image
                         alt={post.node.title}
                         src={post.node.image.url.url}
                         width={660}
@@ -63,11 +64,12 @@ export const Index = (props) => {
                             <a>Read More</a>
                         </Link>
                     </p>
+               
                 </article>
             ))}
            
 
-                <RecentPostWidget content={props.recent.posts}/>
+                {/* <RecentPostWidget content={props.recent.posts}/> */}
             
         </Layout>
     );

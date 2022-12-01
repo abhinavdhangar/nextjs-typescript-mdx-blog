@@ -20,9 +20,9 @@ export const Index = (props) => {
             slug={post.node.slug}
             description={post.description}
             img={
-              typeof post.node.image.url == 'string'
+             post.node.image && typeof post.node.image.url == 'string'
                 ? post.node.image.url
-                : post.node.image.url.url
+                :   post.node.image && post.node.image.url.url
             }
             date={post.node.createdAt}
           />

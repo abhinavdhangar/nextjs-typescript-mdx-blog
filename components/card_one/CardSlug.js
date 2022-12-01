@@ -5,12 +5,12 @@ export default function CardSlug(props) {
   return (
     <Link as={`/posts1/${props.slug}`} href={`/posts1/[slug]`}>
       <div className={styles.cards}>
-        <div className={styles.card}>
-          <img className={`lg:h-[325px]`} src={props.img} />
-          <div className={styles.cardBody}>
-            <h2>{props.title}</h2>
+        <div className={`${styles.card} dark:bg-slate-900 ` }>
+{props.img ?  (<img className={`lg:h-[325px]`} src={props.img} />):(<img className={`lg:h-[325px]`} src={"https://picsum.photos/500/350"}/>)}       
+   <div className={styles.cardBody}>
+            <h2 className={`dark:text-white text-black`}>{props.title}</h2>
             <div
-              className=""
+              className={`dark:text-white text-black`}
               dangerouslySetInnerHTML={{ __html: `${props.description}` }}
             />
 

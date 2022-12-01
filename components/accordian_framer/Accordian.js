@@ -1,36 +1,50 @@
-import * as React from "react";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ContentPlaceholder } from "./Content";
-import styles from '../../styles/accordian.module.css'
-const Accordion = ({ i, expanded, setExpanded }) => {
+import * as React from 'react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ContentPlaceholder } from './Content';
+import styles from '../../styles/accordian.module.css';
+import { getSimilarPosts } from '../../services';
+
+const Accordion = ({
+  i,
+  expanded,
+  setExpanded,
+  title,
+  image,
+  content,
+  slug,
+}) => {
   const isOpen = i === expanded;
 
-  // By using `AnimatePresence` to mount and unmount the contents, we can animate
-  // them in and out while also only rendering the contents of open accordions
   return (
     <>
       <motion.header
-      className={styles.header}
+        className={styles.header}
         initial={false}
-        animate={{ backgroundColor: isOpen ? "#FF0088" : "#0055FF" }}
+        animate={{ backgroundColor: isOpen ? '#FF0088' : '#0055FF' }}
         onClick={() => setExpanded(isOpen ? false : i)}
-      >hello how do you do  six seven eight nine ten eleven twelve thirteen fourteen fifteen</motion.header>
+      >
+        {title}
+      </motion.header>
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.section
-          className={styles.section}
+            className={styles.section}
             key="content"
             initial="collapsed"
             animate="open"
             exit="collapsed"
             variants={{
-              open: { opacity: 1, height: "auto" },
-              collapsed: { opacity: 0, height: 0 }
+              open: { opacity: 1, height: 'auto' },
+              collapsed: { opacity: 0, height: 0 },
             }}
             transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
-            <ContentPlaceholder />
+            <ContentPlaceholder
+              slug={slug}
+              image={image}
+              htmlContent={content}
+            />
           </motion.section>
         )}
       </AnimatePresence>
@@ -38,15 +52,35 @@ const Accordion = ({ i, expanded, setExpanded }) => {
   );
 };
 
-  const AccordianWidget = () => {
-  // This approach is if you only want max one section open at a time. If you want multiple
-  // sections to potentially be open simultaneously, they can all be given their own `useState`.
-  const [expanded, setExpanded] = useState(0);
-const accordionIds = [4, 1, 2, 3];
+const AccordianWidget = (props) => {
+  let { category, slug } = props;
+  const [expanded, setExpanded] = useState(-1);
+  const [accordianContent, setAccordianContent] = useState([]);
+  React.useEffect( () => {
+    async function run(){
+    let content = await getSimilarPosts(category, slug);
+    setAccordianContent(content);
+    }
+    run()
 
-  return accordionIds.map((i) => (
-    <Accordion key={i} i={i} expanded={expanded} setExpanded={setExpanded} />
+  }, []);
+
+  return accordianContent.map((content, i) => (
+    <Accordion
+      key={i}
+      i={i}
+      expanded={expanded}
+      slug={content.slug}
+      title={content.title}
+      image={
+        content.image && typeof content.image.url == 'string'
+          ? content.image.url
+          : content.image && content.image.url.url
+      }
+      content={content.excerpt.html}
+      setExpanded={setExpanded}
+    />
   ));
 };
 
-export default AccordianWidget
+export default AccordianWidget;
