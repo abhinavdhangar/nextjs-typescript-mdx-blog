@@ -12,7 +12,7 @@ export default function Search() {
   const [category, setCategory] = React.useState([]);
   // const [pagination, setPagination] = React.useState(0);
   const [posts, setPosts] = React.useState([]);
-  const [clickedCategory,setClickedCategory] = React.useState("")
+  // const [clickedCategory,setClickedCategory] = React.useState("")
   React.useEffect(() => {
     async function run() {
       let result = await getCategories();
@@ -33,7 +33,7 @@ export default function Search() {
   };
   const searchFunction = async (e) => {
     e.preventDefault();
-    setClickedCategory("")
+    // setClickedCategory("")
     //console.log(searchWord);
     let result = await getBlogSearch(0,searchWord);
     //console.log('result is ...');
@@ -42,7 +42,7 @@ export default function Search() {
   };
 
   const clickToCategory = async (category) => {
-    setClickedCategory(category)
+    // setClickedCategory(category)
     let postData= await getPostsByCategories(0, category);
     // //console.log(postData.categories[0].posts);
     setPosts(postData.categories[0].posts)

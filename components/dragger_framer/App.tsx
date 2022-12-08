@@ -105,7 +105,7 @@ li svg {
       {answers.map((item) => (
         <Item key={item} item={item} />
       ))}
-      <p>{JSON.stringify(answers[0])}</p>
+      <p>{correctAnswer}</p>
       <button onClick={nextQuestion}>next</button>
     </Reorder.Group>
   );

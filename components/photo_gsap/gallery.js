@@ -133,7 +133,7 @@ const Image = ({ url, open, inPlace, id, onInPlace, total }) => {
     y: height / 2,
     scale: 1,
   });
-  const getPosSmallBelow = () => ({ x: width * 0.5, y: height - 30, scale: 1 });
+  // const getPosSmallBelow = () => ({ x: width * 0.5, y: height - 30, scale: 1 });
   const getPosCenter = () => ({ x: width / 2, y: height / 2, scale: 7 });
   const getPosEnd = () => ({
     x: width / 2 - bigSize + overlap,
@@ -150,7 +150,7 @@ const Image = ({ url, open, inPlace, id, onInPlace, total }) => {
     loaded(false);
     if (border.current) {
       gsap.set(border.current, { ...defaults, ...getPosSmall() });
-      console.log(border.current);
+      // console.log(border.current);
     }
     if (clip.current) {
       let flipDuration = firstLoad ? 0 : duration;
@@ -254,7 +254,7 @@ const Image = ({ url, open, inPlace, id, onInPlace, total }) => {
 const Tabs = ({ images, onSelect }) => {
   const gap = 10;
   const circle = 7;
-  const defaults = { transformOrigin: 'center center' };
+  // const defaults = { transformOrigin: 'center center' };
   const width = 400;
   const height = 400;
 
@@ -262,7 +262,7 @@ const Tabs = ({ images, onSelect }) => {
     width / 2 -
     (images.length * (circle * 2 + gap) - gap) / 2 +
     i * (circle * 2 + gap);
-  const getPosY = (i) => height - 30;
+  const getPosY = () => height - 30;
 
   return (
     <svg
@@ -274,7 +274,6 @@ const Tabs = ({ images, onSelect }) => {
       {(!images ? [] : images).map((image, i) => (
         <circle
           key={i}
-          className="kaala"
           onClick={() => onSelect(i)}
           className={styles.border}
           cx={getPosX(i)}
