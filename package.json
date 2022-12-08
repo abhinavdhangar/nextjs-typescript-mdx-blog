@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
+    "export": "next build && next export",
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
@@ -44,6 +45,7 @@
     "mdx-prism": "^0.3.4",
     "next": "^12.3.0",
     "next-mdx-remote": "^4.1.0",
+    "next-seo": "^5.15.0",
     "next-themes": "^0.2.1",
     "nextjs-progressbar": "^0.0.16",
     "react": "^18.2.0",
