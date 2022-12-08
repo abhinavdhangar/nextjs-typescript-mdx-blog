@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://hiro.arcaned.live
+
+# Sitemaps
+Sitemap: https://hiro.arcaned.live/sitemap.xml
