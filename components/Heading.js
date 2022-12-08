@@ -4,7 +4,7 @@ import styles from '../styles/Heading.module.scss';
 const banner = {
   animate: {
     transition: {
-      delayChildren: 0.3,
+      delayChildren: 0.4,
       staggerChildren: 0.1,
     },
   },
@@ -16,7 +16,8 @@ const letterAni = {
     y: 0,
     
     transition: {
-      type:"spring",
+     delayChildren: 0.6,
+      // staggerChildren: 0.1,
       // stiffness:10,
       ease: [0.6, 0.01, -0.05, 0.95],
       duration: 1,
@@ -55,10 +56,9 @@ const BannerRowCenter = ({ title, playMarquee }) => {
         initial={{ y: 310 }}
         animate={{ y: 0 }}
         transition={{
-          duration: 0.4,
-          ease: [0.6, 0.01, -0.05, 0.9],
-          type: 'spring',
-          stiffness: 100,
+       
+          // ease: [0.6, 0.01, -0.05, 0.9],
+        
         }}
       >
         {/* <AnimatedLetters title={title} disabled />

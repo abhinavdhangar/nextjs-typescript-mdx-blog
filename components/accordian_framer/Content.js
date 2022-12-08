@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
-
+import Gallery from '../photo_gsap/gallery'
 import styles from '../../styles/accordian.module.css';
 import Link from 'next/link';
 
@@ -17,7 +17,8 @@ export const ContentPlaceholder = (props) => {
       transition={{ duration: 0.5 }}
       className={styles.contentPlaceholder}
     >
-      <img src={image} />
+      {/* <img src={image} /> */}
+     {image.length>0 && <Gallery images={image}/>}
       <div
         className=""
         dangerouslySetInnerHTML={{ __html: `${htmlContent}` }}

@@ -63,7 +63,7 @@ const AccordianWidget = (props) => {
     }
     run()
 
-  }, []);
+  }, [slug]);
 
   return accordianContent.map((content, i) => (
     <Accordion
@@ -73,9 +73,7 @@ const AccordianWidget = (props) => {
       slug={content.slug}
       title={content.title}
       image={
-        content.image && typeof content.image.url == 'string'
-          ? content.image.url
-          : content.image && content.image.url.url
+       content.galleryList
       }
       content={content.excerpt.html}
       setExpanded={setExpanded}

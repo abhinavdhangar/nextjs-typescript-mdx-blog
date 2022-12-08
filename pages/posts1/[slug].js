@@ -1,7 +1,6 @@
 import { format, parseISO } from 'date-fns';
 
 import matter from 'gray-matter';
-
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
@@ -27,7 +26,7 @@ import { useMediaQuery } from 'react-responsive';
 import DraggerFramer from '../../components/dragger_framer/App';
 import AccordianWidget from '../../components/accordian_framer/Accordian';
 import Heading from '../../components/Heading';
-
+// import styles from '../../styles/slug.module.css'
 const components = {
   Head,
   Image,
@@ -38,6 +37,8 @@ const components = {
 };
 
 const PostPage =  ({ source ,content})=> {
+
+
 
  let router = useRouter()
  let slug = router.query.slug
@@ -68,7 +69,7 @@ const PostPage =  ({ source ,content})=> {
     type: 'article',
   };
   return (
-  <motion.div animate={{ opacity: [1, 0.6, 0, 1] }} transition={{ delay: 2 }}>
+  <motion.div  animate={{ opacity: [1, 0.6, 0, 1] }} transition={{ delay: 2 }}>
 
       <Layout customMeta={customMeta}>
         <article>
@@ -86,15 +87,18 @@ const PostPage =  ({ source ,content})=> {
             </p>
 
             <div className="flex">
-              <div className="prose max-w-[700px] dark:prose-dark">
+              <div className="prose max-w-[800px] dark:prose-dark">
                 <MDXRemote {...content} components={components} />
               </div>
             {isBigScreen &&  <div className="w-full h-auto md:ml-[30px] ">
                 <div className={`w-full ${heightHook<1200?"translate-y-[50px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
                   <AccordianWidget category={categorySlug} slug={slug} />
                 </div>
-               {isBigScreen && heightHook>1200 && <div className={`w-full ${heightHook<1200?"translate-y-[50px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
+               {isBigScreen && heightHook>1200 && <div className={`w-full mt-[45px] ${heightHook<1200?"translate-y-[70px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
                   <DraggerFramer />
+                </div>}
+                {isBigScreen && heightHook>1200 && <div className={`w-full my-[45px] ${heightHook<1200?"translate-y-[70px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
+                 <iframe  frameborder="no" allowtransparency="true" allowfullscreen="true" src="https://www.jiosaavn.com/embed/playlist/1106094575" width="360" height="500"/>
                 </div>}
               </div>}
             </div>

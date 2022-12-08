@@ -8,7 +8,7 @@ export default function CardSlug(props) {
         <div className={`${styles.card} dark:bg-slate-900 ` }>
 {props.img ?  (<img className={`lg:h-[325px]`} src={props.img} />):(<img className={`lg:h-[325px]`} src={"https://picsum.photos/500/350"}/>)}       
    <div className={styles.cardBody}>
-            <h2 className={`dark:text-white text-black`}>{props.title}</h2>
+            <h2 className={`dark:text-white underline text-black`}>{props.title}</h2>
             <div
               className={`dark:text-white text-black`}
               dangerouslySetInnerHTML={{ __html: `${props.description}` }}
