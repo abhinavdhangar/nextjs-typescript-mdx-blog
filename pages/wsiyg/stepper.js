@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 
-let codeArray = [];
+// let codeArray = [];
 
 export default function App() {
   const [inputValue, setInputValue] = useState(0);
@@ -61,9 +61,8 @@ if(title.length == inputValue){
 
     setStepperCode(`<Stepper
     list={${JSON.stringify(d)}}/>`);
-    console.log(`<stepper
-    list={${JSON.stringify(d)}}/>`);
-    console.log(code,url,d)
+ 
+   
   };
   useEffect(() => {
     let arr1 = [{ title: 'hello' }, { title: 'good night' }];
@@ -71,12 +70,14 @@ if(title.length == inputValue){
     arr1.filter((single, i) => {
       arr1[i] = { title: arr1[i].title, url: arr2[i].url };
     });
-    console.log(arr1);
+    // console.log(arr1);
   }, []);
   return (
     <>
       <h1>hello this is stepper</h1>
       <h1>{JSON.stringify(inputValue)}</h1>
+      <Head><title>
+        Stepper</title></Head>
       <div>
         {[...Array(inputValue)].map((single, index) => {
           return (

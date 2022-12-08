@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
-import { Breadcrumbs as MUIBreadcrumbs, Typography } from "@mui/material";
+// import { Breadcrumbs as MUIBreadcrumbs, Typography } from "@mui/material";
 import Link from 'next/link'
 
 const Breadcrumb = props => {
@@ -13,7 +13,7 @@ const Breadcrumb = props => {
 
   const pathnames = router.pathname.split("/").filter(x => x);
 
-  console.log(router)
+  // console.log(router)
   return (
     <div className={`flex`}>
       {pathnames.length > 0 ? (

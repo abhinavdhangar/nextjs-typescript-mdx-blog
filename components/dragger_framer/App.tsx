@@ -1,13 +1,13 @@
-// import "./styles.css";
+
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Reorder } from 'framer-motion';
 import { Item } from './Item';
 import axios from 'axios';
-const initialItems = ['🍅 Tomato', '🥒 Cucumber', '🧀 Cheese', '🥬 Lettuce'];
+// const initialItems = ['🍅 Tomato', '🥒 Cucumber', '🧀 Cheese', '🥬 Lettuce'];
 
 export default function DraggerFramer() {
-  const [items, setItems] = useState(initialItems);
+  // const [items, setItems] = useState(initialItems);
   const [answers, setAnswers] = useState([]);
   const [index, setIndex] = useState(0);
   const [rawData, setRawData] = useState([]);

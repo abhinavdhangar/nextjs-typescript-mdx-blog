@@ -2,7 +2,7 @@ import React from 'react';
 import { gsap } from 'gsap';
 import styles from '../../styles/gallery_gsap/gsap.module.scss';
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin';
-import { Diversity2 } from '@mui/icons-material';
+// import { Diversity2 } from '@mui/icons-material';
 const App = (props) => {
   const [opened, setOpened] = React.useState(0);
   gsap.registerPlugin(MotionPathPlugin);

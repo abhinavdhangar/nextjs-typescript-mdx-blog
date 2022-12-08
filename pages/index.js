@@ -1,12 +1,12 @@
-import Image from 'next/image';
-import Link from 'next/link';
+// import Image from 'next/image';
+// import Link from 'next/link';
 import React from 'react';
 import Layout from '../components/Layout';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import CardSlug from '../components/card_one/CardSlug';
 // import { getAllPosts } from '../lib/api';
-import { getPosts, getRecentPosts } from '../services';
+import { getPosts } from '../services';
 
 export const Index = () => {
   const [posts, setPosts] = React.useState([]);
@@ -47,6 +47,7 @@ export const Index = () => {
   return (
     <>
       <Layout></Layout>
+      <h1 className='text-6xl flex items-center justify-center font-semibold my-4'>Blogs</h1>
       <InfiniteScroll
         dataLength={posts.length}
         next={fetchData}

@@ -5,16 +5,16 @@ const graphQLClient = new GraphQLClient(
   graphQLAPI // here add your endpoint
 );
 export const getPosts = async (page) => {
-  var pagination = page 
+  var pagination = page;
   // if(pagination==1) {pagination = 0 }
   const graphQLClient = new GraphQLClient(graphQLAPI, {
     headers: () => ({
       //  'gcms-locales': 'en'
-        }),
+    }),
   });
   const query = gql`
     query Posts {
-      postsConnection(first:10,skip:${JSON.stringify(page*10)}) {
+      postsConnection(first:10,skip:${JSON.stringify(page * 10)}) {
         edges {
           node {
             author {
@@ -64,6 +64,7 @@ export const getPostDetails = async (slug) => {
         title
         excerpt {
           markdown
+          text
         }
         image {
           ... on ImageSystem {
@@ -176,12 +177,14 @@ export const getCategories = async () => {
   return result;
 };
 
-export const getBlogSearch = async (page,word) => {
+export const getBlogSearch = async (page, word) => {
   console.log('word is. ..');
   console.log(word);
   const query = gql`
     query Search {
-      posts(first:10,skip:${JSON.stringify(page*10)},where: { _search: ${JSON.stringify(word)}}) {
+      posts(first:10,skip:${JSON.stringify(
+        page * 10
+      )},where: { _search: ${JSON.stringify(word)}}) {
           title
       slug
       excerpt{
@@ -206,11 +209,11 @@ export const getBlogSearch = async (page,word) => {
   return result;
 };
 
-export const getPostsByCategories = async (page,category)=>{
-  const query = gql ` 
+export const getPostsByCategories = async (page, category) => {
+  const query = gql` 
   query MyQuery {
   categories(where: {_search: ${JSON.stringify(category)}}) {
-    posts(first:10,skip:${JSON.stringify(page*10)}) {
+    posts(first:10,skip:${JSON.stringify(page * 10)}) {
       title
       slug
       excerpt{
@@ -230,8 +233,21 @@ export const getPostsByCategories = async (page,category)=>{
     }
   }
 }
-`
+`;
 
   const result = await graphQLClient.request(query);
   return result;
-}
+};
+
+export const getPostSlug = async () => {
+  const query = gql`
+    query allSlug {
+      posts {
+        slug
+      }
+    }
+  `;
+
+  const result = await graphQLClient.request(query);
+  return result;
+};

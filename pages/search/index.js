@@ -1,8 +1,6 @@
-import { TextField } from '@mui/material';
-import { useTheme } from 'next-themes';
+
 import React from 'react';
 import Layout from '../../components/Layout';
-import axios from 'axios';
 import {
   getBlogSearch,
   getCategories,
@@ -12,7 +10,7 @@ import CardSlug from '../../components/card_one/CardSlug';
 export default function Search() {
   const [searchWord, setSearchWord] = React.useState('');
   const [category, setCategory] = React.useState([]);
-  const [pagination, setPagination] = React.useState(0);
+  // const [pagination, setPagination] = React.useState(0);
   const [posts, setPosts] = React.useState([]);
   const [clickedCategory,setClickedCategory] = React.useState("")
   React.useEffect(() => {
@@ -36,33 +34,33 @@ export default function Search() {
   const searchFunction = async (e) => {
     e.preventDefault();
     setClickedCategory("")
-    console.log(searchWord);
+    //console.log(searchWord);
     let result = await getBlogSearch(0,searchWord);
-    console.log('result is ...');
-    console.log(result);
+    //console.log('result is ...');
+    //console.log(result);
     setPosts(result.posts)
   };
 
   const clickToCategory = async (category) => {
     setClickedCategory(category)
     let postData= await getPostsByCategories(0, category);
-    // console.log(postData.categories[0].posts);
+    // //console.log(postData.categories[0].posts);
     setPosts(postData.categories[0].posts)
   };
 
-  const fetchSearchData = async () =>{
+//   const fetchSearchData = async () =>{
     
-    let dd = posts
-    setPagination(()=>pagination+1)
+//     let dd = posts
+//     setPagination(()=>pagination+1)
     
-  }
- const fetchCategoryData = async()=>{
-   let dd = posts 
-   setPagination(()=>pagination+1)
-let postData = await getPostsByCategories(pagination,clickedCategory)
-console.log(postData)
+//   }
+//  const fetchCategoryData = async()=>{
+//    let dd = posts 
+//    setPagination(()=>pagination+1)
+// let postData = await getPostsByCategories(pagination,clickedCategory)
+// //console.log(postData)
 
- }
+//  }
 
   return (
     <div>

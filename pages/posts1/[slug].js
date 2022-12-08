@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 
 import matter from 'gray-matter';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -13,13 +13,13 @@ import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import CopyButton from '../../components/CopyButton';
-import Layout, { WEBSITE_HOST_URL } from '../../components/Layout';
+import Layout from '../../components/Layout';
 import Pre from '../../components/Pre';
 import Stepper from '../../components/Stepper'
-import { MetaProps } from '../../types/layout';
-import {getPostDetails, getSimilarPosts} from '../../services'
-import { PostType } from '../../types/post';
-import BreadCrumb from '../../components/BreadCrumb'
+// import { MetaProps } from '../../types/layout';
+import {getPostDetails, getPostSlug} from '../../services'
+// import { PostType } from '../../types/post';
+// import BreadCrumb from '../../components/BreadCrumb'
 import { useRouter } from 'next/router';
 import { useEffect ,useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -62,8 +62,8 @@ const PostPage =  ({ source ,content})=> {
  
   const customMeta = {
     title: `${source.title} - Hunter Chang`,
-    // description: source.description,
-    // image:source.image && typeof source.image.url == "string" ? source.image.url: source.image && source.image.url.url,
+    description: source.excerpt.text,
+    image:source.image && typeof source.image.url == "string" ? source.image.url: source.image && source.image.url.url,
     // image: `${WEBSITE_HOST_URL}${source.image.}`,
     date: source.createdAt,
     type: 'article',
@@ -98,7 +98,7 @@ const PostPage =  ({ source ,content})=> {
                   <DraggerFramer />
                 </div>}
                 {isBigScreen && heightHook>1200 && <div className={`w-full my-[45px] ${heightHook<1200?"translate-y-[70px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
-                 <iframe  frameborder="no" allowtransparency="true" allowfullscreen="true" src="https://www.jiosaavn.com/embed/playlist/1106094575" width="360" height="500"/>
+                 <iframe  frameBorder="no"  allowfullscreen="true" src="https://www.jiosaavn.com/embed/playlist/1106094575" width="360" height="500"/>
                 </div>}
               </div>}
             </div>
@@ -123,8 +123,8 @@ const PostPage =  ({ source ,content})=> {
   );
 };
 
-export const getServerSideProps= async ({ params }) => {
-const {slug} = params
+export const getStaticProps= async (ctx) => {
+const slug = ctx.params.slug
 const result = await getPostDetails(slug)
 let rawData = result.markdownContent
 
@@ -158,20 +158,26 @@ const {content,data} = matter(rawData)
       content:mdxSource,
       
     },
+    revalidate:1000
   };
 };
 
-// export const getStaticPaths= async () => {
-//   const paths = postFilePaths
-//     // Remove file extensions for page paths
-//     .map((path) => path.replace(/\.mdx?$/, ''))
-//     // Map the path into the static paths object required by Next.js
-//     .map((slug) => ({ params: { slug } }));
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
+export const getStaticPaths= async () => {
+  const postsData = await getPostSlug()
+  
+ let paths =  postsData.posts.map(post=>{
+   return {
+     params:
+     {
+       slug:post.slug
+     }
+   }
+ })
+ 
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
 
 export default PostPage;
