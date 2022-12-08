@@ -76,7 +76,7 @@ console.log(postData)
             placeholder="Search here"
      
           />
-          <button type="submit" onClick={searchFunction}>
+          <button className=' ml-3 bg-blue-300 px-3 py-2 rounded-md' type="submit" onClick={searchFunction}>
             Search
           </button>
         </form>
@@ -95,7 +95,7 @@ console.log(postData)
         ))}
       </div>
       </div>
-      <p>This is search page</p>
+     {!posts.length>0  && <p>Search Results will show here...</p>}
       
       
       <div className='grid  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
