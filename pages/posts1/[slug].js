@@ -1,13 +1,12 @@
 import { format, parseISO } from 'date-fns';
 
 import matter from 'gray-matter';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import path from 'path';
+import {motion } from 'framer-motion'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypePrism from 'rehype-prism-plus';
@@ -18,14 +17,16 @@ import Layout, { WEBSITE_HOST_URL } from '../../components/Layout';
 import Pre from '../../components/Pre';
 import Stepper from '../../components/Stepper'
 import { MetaProps } from '../../types/layout';
-import {getPostDetails} from '../../services'
+import {getPostDetails, getSimilarPosts} from '../../services'
 import { PostType } from '../../types/post';
 import BreadCrumb from '../../components/BreadCrumb'
-// import { postFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
-// Custom components/renderers to pass to MDX.
-// Since the MDX files aren't loaded by webpack, they have no knowledge of how
-// to handle import statements. Instead, you must include components in scope
-// here.
+import { useRouter } from 'next/router';
+import { useEffect ,useState} from 'react';
+import { useMediaQuery } from 'react-responsive';
+import DraggerFramer from '../../components/dragger_framer/App';
+import AccordianWidget from '../../components/accordian_framer/Accordian';
+import Heading from '../../components/Heading';
+// import styles from '../../styles/slug.module.css'
 const components = {
   Head,
   Image,
@@ -35,36 +36,90 @@ const components = {
   Stepper
 };
 
-// type PostPageProps = {
-//   source: MDXRemoteSerializeResult;
-//   frontMatter: PostType;
-// };
+const PostPage =  ({ source ,content})=> {
 
-const PostPage = ({ source ,content})=> {
+
+
+ let router = useRouter()
+ let slug = router.query.slug
+  let categorySlug =[];
+ source.categories.map((category)=>{
+   categorySlug.push(category.slug)
+ })
+
+
+
+  const [heightHook, setHeightHook] = useState(null);
+   const isBigScreen = useMediaQuery({ query: '(min-width: 1100px)' })
+  useEffect(() => {
+    const height =document.body.scrollHeight
+        if (typeof window !== 'undefined') {
+       setHeightHook(height);
+    }
+
+  });
+       
+ 
   const customMeta = {
     title: `${source.title} - Hunter Chang`,
-    description: source.description,
-    image:typeof source.image.url == "string" ? source.image.url:source.image.url.url,
+    // description: source.description,
+    // image:source.image && typeof source.image.url == "string" ? source.image.url: source.image && source.image.url.url,
     // image: `${WEBSITE_HOST_URL}${source.image.}`,
     date: source.createdAt,
     type: 'article',
   };
   return (
+  <motion.div  animate={{ opacity: [1, 0.6, 0, 1] }} transition={{ delay: 2 }}>
 
-    <Layout customMeta={customMeta}>
-      <BreadCrumb present={source.title}/>
-      <article>
-        <h1 className="mb-3 text-gray-900 dark:text-white">
-          {source.title}
-        </h1>
-        <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
-          {format(parseISO(source.createdAt), 'MMMM dd, yyyy')}
-        </p>
-        <div className="prose dark:prose-dark">
-          <MDXRemote {...content} components={components} />
-        </div>
-      </article>
-    </Layout>
+      <Layout customMeta={customMeta}>
+        <article>
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -300 }}
+            transition={{ duration: 0.4, type: 'spring', stiffness: 100 }}
+          >
+            <h1 className="mb-3 text-gray-900 dark:text-white">
+              <Heading heading={source.title} />
+              {/* <span>{heightHook}</span> */}
+            </h1>
+            <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
+              {format(parseISO(source.createdAt), 'MMMM dd, yyyy')}
+            </p>
+
+            <div className="flex">
+              <div className="prose max-w-[800px] dark:prose-dark">
+                <MDXRemote {...content} components={components} />
+              </div>
+            {isBigScreen &&  <div className="w-full h-auto md:ml-[30px] ">
+                <div className={`w-full ${heightHook<1200?"translate-y-[50px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
+                  <AccordianWidget category={categorySlug} slug={slug} />
+                </div>
+               {isBigScreen && heightHook>1200 && <div className={`w-full mt-[45px] ${heightHook<1200?"translate-y-[70px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
+                  <DraggerFramer />
+                </div>}
+                {isBigScreen && heightHook>1200 && <div className={`w-full my-[45px] ${heightHook<1200?"translate-y-[70px]":"translate-y-[499px]"} h-auto md:ml-[30px]`}>
+                 <iframe  frameborder="no" allowtransparency="true" allowfullscreen="true" src="https://www.jiosaavn.com/embed/playlist/1106094575" width="360" height="500"/>
+                </div>}
+              </div>}
+            </div>
+          </motion.div>
+        </article>
+      </Layout>
+    </motion.div>
+    // <Layout customMeta={customMeta}>
+    //   <BreadCrumb present={source.title}/>
+    //   <article>
+    //     <h1 className="mb-3 text-gray-900 dark:text-white">
+    //       {source.title}
+    //     </h1>
+    //     <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
+    //       {format(parseISO(source.createdAt), 'MMMM dd, yyyy')}
+    //     </p>
+    //     <div className="prose dark:prose-dark">
+    //       <MDXRemote {...content} components={components} />
+    //     </div>
+    //   </article>
+    // </Layout>
   );
 };
 
@@ -72,7 +127,7 @@ export const getServerSideProps= async ({ params }) => {
 const {slug} = params
 const result = await getPostDetails(slug)
 let rawData = result.markdownContent
-console.log(rawData)
+
 const {content,data} = matter(rawData)
 
   const mdxSource = await serialize(content, {
@@ -100,7 +155,8 @@ const {content,data} = matter(rawData)
   return {
     props: {
       source: result,
-      content:mdxSource
+      content:mdxSource,
+      
     },
   };
 };

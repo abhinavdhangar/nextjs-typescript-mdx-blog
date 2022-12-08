@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import ThemeSwitch from './ThemeSwitch';
 import {isMobile} from 'react-device-detect';
 import { motion } from 'framer-motion';
+import Search from './Search';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -26,7 +27,10 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         >
           <div className="flex items-center justify-between py-6">
             <Navigation />
+            <div className='flex gap-2 items-center'>
+            <Search/>
             <ThemeSwitch />
+            </div>
           </div>
         </motion.div>
         
@@ -34,9 +38,9 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         </div>
       </header>
       <main>
-        <div className={`max-w-5xl ${isMobile?"px-4":"px-8"}  py-4 mx-auto`}>{children}</div>
+        <div className={`max-w-[82rem] ${isMobile?"px-4":"px-8"}  py-4 ml-auto`}>{children}</div>
       </main>
-      <footer className="py-8">
+      {/* <footer className="py-8">
         <div className="max-w-5xl px-8 mx-auto">
           Built by{' '}
           <a
@@ -46,7 +50,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             Hunter Chang
           </a>
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 };
