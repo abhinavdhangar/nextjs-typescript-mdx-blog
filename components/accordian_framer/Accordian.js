@@ -57,6 +57,7 @@ const AccordianWidget = (props) => {
   const [expanded, setExpanded] = useState(-1);
   const [accordianContent, setAccordianContent] = useState([]);
   React.useEffect( () => {
+    setExpanded(-1)
     async function run(){
     let content = await getSimilarPosts(category, slug);
     setAccordianContent(content);
