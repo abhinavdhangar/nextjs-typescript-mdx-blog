@@ -3,9 +3,10 @@ import { MetaProps } from '../types/layout';
 import Head from './Head';
 import Navigation from './Navigation';
 import ThemeSwitch from './ThemeSwitch';
-import {isMobile} from 'react-device-detect';
+
 import { motion } from 'framer-motion';
 import Search from './Search';
+import { useMediaQuery } from 'react-responsive';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -15,30 +16,34 @@ type LayoutProps = {
 export const WEBSITE_HOST_URL = 'https://nextjs-typescript-mdx-blog.vercel.app';
 
 const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
+  const isMobile = useMediaQuery({ query: '(max-width: 445px)' });
   return (
     <>
       <Head customMeta={customMeta} />
       <header>
-        <div className={`max-w-5xl ${isMobile?"px-4":"px-8"} mx-auto`}>
-        
-        <motion.div
-          animate={{ opacity:1 , x:0 }}
-            initial={{ opacity:0 , x:-100 }}
-        >
-          <div className="flex items-center justify-between py-6">
-            <Navigation />
-            <div className='flex gap-2 items-center'>
-            <Search/>
-            <ThemeSwitch />
+        <div className={`max-w-5xl ${isMobile ? 'px-4' : 'px-8'} mx-auto`}>
+          <motion.div
+            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -100 }}
+          >
+            <div className="flex items-center justify-between py-6">
+              <Navigation />
+              <div className="flex gap-2 items-center">
+                <Search />
+                <ThemeSwitch />
+              </div>
             </div>
-          </div>
-        </motion.div>
-        
-
+          </motion.div>
         </div>
       </header>
       <main>
-        <div className={`max-w-[82rem] ${isMobile?"px-4":"px-8"}  py-4 ml-auto`}>{children}</div>
+        <div
+          className={`max-w-[82rem] ${
+            isMobile ? 'px-4' : 'px-[0.7rem]'
+          }  py-4 ml-auto`}
+        >
+          {children}
+        </div>
       </main>
       {/* <footer className="py-8">
         <div className="max-w-5xl px-8 mx-auto">

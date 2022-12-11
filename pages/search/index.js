@@ -61,27 +61,28 @@ export default function Search() {
 // //console.log(postData)
 
 //  }
+let categoryBtn =  `cursor-pointer text-indigo-700 bg-indigo-100 hover:bg-indigo-50 focus:border-indigo-300 px-2 py-1 text-sm 5xl:text-xl  inline-flex items-center border border-transparent leading-6 font-medium rounded-md focus:outline-none  focus:ring focus:ring-indigo-300 focus:ring-opacity-50 transition ease-in-out duration-150  mt-2 mr-1 filter-category-btn`
+let inputContainer = `w-full show-search-overlay pl-10 block w-full py-2 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`
 
   return (
     <div>
       <Layout />
       <div className='flex flex-col gap-4 items-center justify-center'>
-        <form>
+        <form className='w-[70vw] md:w-[40vw]'>
           <input
-             className=' border-2 border-black dark:border-white px-4 py-3 focus:border-blue-300 rounded-md '
-            onChange={(e) => changeSearchWord(e)}
+ className={inputContainer}            onChange={(e) => changeSearchWord(e)}
             value={searchWord}
             placeholder="Search here"
      
           />
-          <button className=' ml-3 bg-blue-300 px-3 py-2 rounded-md' type="submit" onClick={searchFunction}>
+          <button className='hidden ml-3 bg-blue-300 px-3 py-2 rounded-md' type="submit" onClick={searchFunction}>
             Search
           </button>
         </form>
-      <div className="gap-2 flex">
+      <div className="flex justify-center items-center flex-wrap mb-6">
         {category.map((single, i) => (
-          <button
-            className="bg-blue-200 font-semibold rounded-md px-2 py-1"
+          <span
+          className={categoryBtn}
             key={i}
             onClick={(e) => {
               clickToCategory(e.currentTarget.innerText);
@@ -89,7 +90,7 @@ export default function Search() {
           >
             {' '}
             {single}{' '}
-          </button>
+          </span>
         ))}
       </div>
       </div>
