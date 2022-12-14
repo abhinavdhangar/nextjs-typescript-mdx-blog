@@ -13,7 +13,7 @@ const Navigation = (): JSX.Element => {
     >
 
       <Link href="/">
-        <a className="text-gray-900 dark:text-white pr-6 py-4">Home</a>
+        <a className="text-gray-900 dark:text-white pr-6 md:py-4 py-2">Home</a>
       </Link>
    
     </motion.div>
@@ -27,7 +27,7 @@ const Navigation = (): JSX.Element => {
    >
 
     <Link href="/about">
-        <a className="text-gray-900 dark:text-white px-6 py-4">About</a>
+        <a className="text-gray-900 dark:text-white px-6 md:py-4 py-2 ">About</a>
       </Link>
 </motion.div>
     </nav>

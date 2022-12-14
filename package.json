@@ -56,7 +56,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^8.0.3",
     "react-responsive": "^9.0.0",
-    "sass": "^1.56.1"
+    "sass": "^1.56.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "^13.4.0",

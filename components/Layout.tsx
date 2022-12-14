@@ -26,7 +26,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             animate={{ opacity: 1, x: 0 }}
             initial={{ opacity: 0, x: -100 }}
           >
-            <div className="flex items-center justify-between py-6">
+            <div className="flex items-center justify-between  md:py-6 ">
               <Navigation />
               <div className="flex gap-2 items-center">
                 <Search />

@@ -1,9 +1,9 @@
-# *
+
 User-agent: *
 Allow: /
-
-# Host
+Disallow : /post1/
+Allow :/post1/*
+Allow /about
 Host: https://hiro.arcaned.live
 
-# Sitemaps
 Sitemap: https://hiro.arcaned.live/sitemap.xml

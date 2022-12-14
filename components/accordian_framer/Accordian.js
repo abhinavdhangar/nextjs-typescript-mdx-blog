@@ -66,7 +66,8 @@ const AccordianWidget = (props) => {
 
   }, [slug]);
 
-  return accordianContent.map((content, i) => (
+  return (<div className={`md:max-w-[400px]`}>
+{  accordianContent.map((content, i) => (
     <Accordion
       key={i}
       i={i}
@@ -79,7 +80,8 @@ const AccordianWidget = (props) => {
       content={content.excerpt.html}
       setExpanded={setExpanded}
     />
-  ));
+  ))}
+  </div>)
 };
 
 export default AccordianWidget;

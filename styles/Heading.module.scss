@@ -3,7 +3,6 @@ $layout-breakpoint-medium: 1440px;
 $layout-breakpoint-small: 960px;
 $layout-breakpoint-xsmall: 480px;
 @import url('https://fonts.googleapis.com/css2?family=Fresca&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Griffy&display=swap');// Colors
 $background: #f0eff1;
 $white: #fff;
 $black: #24242a;
@@ -46,7 +45,7 @@ font-family: 'Fresca', sans-serif;
         // font-size: 13rem;
       }
     }
-    .row-col {
+    .rowCol {
       width: 50%;
       display: flex;
       align-content: center;

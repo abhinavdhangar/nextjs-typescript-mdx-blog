@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+.headingFont{
+     font-family: 'Poiret One', cursive;
+      letter-spacing:1.9px;
+    line-height:32px;
+}

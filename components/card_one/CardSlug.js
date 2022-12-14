@@ -6,7 +6,7 @@ export default function CardSlug(props) {
     <Link as={`/posts1/${props.slug}`} href={`/posts1/[slug]`}>
       <div className={styles.cards}>
         <div className={`${styles.card} dark:bg-slate-900 ` }>
-{props.img ?  (<img className={`lg:h-[325px]`} src={props.img} />):(<img className={`lg:h-[325px]`} src={"https://picsum.photos/500/350"}/>)}       
+{props.img ?  (<img className={`lg:h-[325px]`} alt={props.title} src={props.img} />):(<img alt={props.title} className={`lg:h-[325px]`} src={"https://picsum.photos/500/350"}/>)}       
    <div className={styles.cardBody}>
             <h2 className={` dark:text-white  text-black  ` + styles.heding}>{props.title}</h2>
             <div
@@ -14,7 +14,7 @@ export default function CardSlug(props) {
               dangerouslySetInnerHTML={{ __html: `${props.description}` }}
             />
 
-            <h5>{format(parseISO(props.date), 'MMMM dd, yyyy')}</h5>
+            <h5>{props.date&& format(parseISO(props.date), 'MMMM dd, yyyy')}</h5>
           </div>
         </div>
       </div>
