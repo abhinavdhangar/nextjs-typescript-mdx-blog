@@ -82,7 +82,7 @@ export const Index = () => {
             animate="animate"
             className="grid overflow-hidden  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
           >
-            {posts.map((post, i) => (
+            {posts.map((post) => (
               <motion.div key={uuid()} variants={cardVariant}>
                 <CardSlug
                   title={post.node.title}
