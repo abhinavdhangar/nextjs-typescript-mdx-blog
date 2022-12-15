@@ -38,8 +38,8 @@ export const Index = () => {
   const banner = {
     animate: {
       transition: {
-        delayChildren: 0.4,
-        staggerChildren: 0.5,
+        delayChildren: 0.2,
+        staggerChildren: 0.1,
       },
     },
   };
