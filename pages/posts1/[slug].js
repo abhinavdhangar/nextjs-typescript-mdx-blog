@@ -188,7 +188,8 @@ export const getStaticProps = async (ctx) => {
       source: result,
       content: mdxSource,
     },
-    revalidate: 1000,
+    notFound: !result,
+    revalidate: 100,
   };
 };
 
